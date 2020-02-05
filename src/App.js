@@ -5,7 +5,7 @@ import NewUserForm from './Components/NewUserForm'
 import Logout from './Components/Logout'
 import Home from './Components/Home'
 import Game from './Components/Game'
-import Quiz from './Components/Quiz'
+import QuizPage from './Components/QuizPage'
 import Notification from './Components/Notification'
 import {
     BrowserRouter as Router,
@@ -13,6 +13,8 @@ import {
 } from 'react-router-dom'
 import loginService from './Services/login'
 import userService from './Services/user'
+import categoryService from './Services/categories'
+import quizService from './Services/quiz'
 
 const App = () => {
     const [user, setUser] = useState(null)
@@ -21,16 +23,31 @@ const App = () => {
     const [message, setMessage] = useState(null)
     const [newUsername, setNewUsername] = useState('')
     const [newPassword, setNewPassword] = useState('')
+    const [categories, setCategories] = useState('')
+    const [quizzes, setQuizzes] = useState('')
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
         if(loggedUserJSON) {
-            const fetchData = async (loggedUserJSON) => {
-                const user = JSON.parse(loggedUserJSON)
-                setUser(user)
-            }
-            fetchData(loggedUserJSON)
+            const user = JSON.parse(loggedUserJSON)
+            setUser(user)
         }
+    }, [])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const categories = await categoryService.getAll()
+            setCategories(categories)
+        }
+        fetchData()
+    }, [])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const quizzes = await quizService.getAll()
+            setQuizzes(quizzes)
+        }
+        fetchData()
     }, [])
 
     const handleLogin = async (event) => {
@@ -47,7 +64,6 @@ const App = () => {
             setPassword('')
         }
     }
-
 
     const handleNewUser = async (event) => {
         event.preventDefault()
@@ -100,27 +116,34 @@ const App = () => {
                         <Notification message={message} />
                     </div>
                     <Route exact path = '/' render={() => <Home />} />
-                    <Route exact path = '/login' render={() =>
+                    <Route path = '/login' render={() =>
                         <Login handleLogin={handleLogin}
                             username={username}
                             password={password}
                             handleUsernameChange={handleUsernameChange}
                             handlePasswordChange={handlePasswordChange}
-                        />} />
-                    <Route exact path = '/quiz' render={() => <Quiz />} />
+                        />}
+                    />
+                    <Route exact path = '/quiz' render={() =>
+                        <QuizPage
+                            categories={categories}
+                            quizzes={quizzes}
+                        />}
+                    />
                     <Route path='/game' render={() => user ?
                         <Game /> :
                         <Redirect to='/login' />} />
-                    <Route exact path = '/register' render={() =>
+                    <Route path = '/register' render={() =>
                         <NewUserForm handleNewUser={handleNewUser}
                             newUsername={newUsername}
                             newPassword={newPassword}
                             handleNewUsernameChange={handleNewUsernameChange}
                             handleNewPasswordChange={handleNewPasswordChange}
-                        />} />
+                        />}
+                    />
                     <Route path = '/logout' render={() =>
-                        <Logout handleLogout={handleLogout}
-                        />} />
+                        <Logout handleLogout={handleLogout} />}
+                    />
                 </div>
             </Router>
         </div>
