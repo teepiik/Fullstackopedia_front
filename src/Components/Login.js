@@ -12,17 +12,11 @@ const Login = (props) => {
                         <Form.Group>
                             <Form.Label>Username: </Form.Label>
                             <Form.Control
-                                type='text'
-                                name='username'
-                                value={props.username}
-                                onChange={props.handleUsernameChange}
+                                {...props.username}
                             />
                             <Form.Label>Password: </Form.Label>
                             <Form.Control
-                                type='password'
-                                name='password'
-                                value={props.password}
-                                onChange={props.handlePasswordChange}
+                                {...props.password}
                             />
                             <Button className='button' variant='dark' type='submit'>
                                 login

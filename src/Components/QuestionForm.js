@@ -1,24 +1,24 @@
 import React from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 
-const NewUserForm = (props) => {
+const QuestionForm = (props) => {
     return (
         <div>
-            <h2>Register new Player</h2>
+            <h4>Add new Question</h4>
             <Row>
                 <Col>
-                    <Form onSubmit={props.handleNewUser}>
+                    <Form onSubmit={props.handleNewQuestion}>
                         <Form.Group>
-                            <Form.Label>Username: </Form.Label>
+                            <Form.Label>Question: </Form.Label>
                             <Form.Control
-                                {...props.newUsername}
+                                {...props.newQuestion}
                             />
-                            <Form.Label>Password: </Form.Label>
+                            <Form.Label>Answer: </Form.Label>
                             <Form.Control
-                                {...props.newPassword}
+                                {...props.newAnswer}
                             />
                             <Button className='button' variant='dark' type='submit'>
-                                Register
+                                Create
                             </Button>
                         </Form.Group>
                     </Form>
@@ -29,4 +29,4 @@ const NewUserForm = (props) => {
     )
 }
 
-export default NewUserForm
+export default QuestionForm

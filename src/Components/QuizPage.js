@@ -1,4 +1,6 @@
 import React from 'react'
+import QuestionForm from './QuestionForm'
+import Togglable from './Togglable'
 
 const Quiz = props => {
     const quiz = props.quiz
@@ -26,6 +28,13 @@ const QuizPage = props => {
                     />
                 )}
             </ul>
+            <Togglable buttonLabel='New Question' ref={props.QuestionFormRef}>
+                <QuestionForm
+                    handleNewQuestion={props.handleNewQuestion}
+                    newQuestion={props.newQuestion}
+                    newAnswer={props.newAnswer}
+                />
+            </Togglable>
         </div>
     )
 }
