@@ -24,10 +24,11 @@ const App = () => {
     const password = useField('password')
     const newUsername = useField('text')
     const newPassword = useField('password')
-    const [categories, setCategories] = useState('')
-    const [quizzes, setQuizzes] = useState('')
+    const [categories, setCategories] = useState(null)
+    const [quizzes, setQuizzes] = useState(null)
     const newQuestion = useField('text')
     const newAnswer = useField('text')
+    const [newQuizCategoryId, setNewQuizCategoryId] = useState('')
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -56,6 +57,10 @@ const App = () => {
 
     const QuestionFormRef = React.createRef()
 
+    const handleQuizCategoryIdChange = (event) => {
+        setNewQuizCategoryId(event.target.value)
+    }
+
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
@@ -78,7 +83,7 @@ const App = () => {
             const quizObject = {
                 question: newQuestion.field.value,
                 answer: newAnswer.field.value,
-                category: 'Programming'
+                category_id: newQuizCategoryId
             }
             quizService.setToken(user.token)
             const newQuiz = await quizService.create(quizObject)
@@ -88,6 +93,7 @@ const App = () => {
             setUpNotification('New question added!')
         } catch (error) {
             console.log(error)
+            // TODO SOMETHING ELSE
         }
     }
 
@@ -133,6 +139,7 @@ const App = () => {
                             newQuestion={newQuestion.field}
                             newAnswer={newAnswer.field}
                             QuestionFormRef={QuestionFormRef}
+                            handleQuizCategoryIdChange={handleQuizCategoryIdChange}
                         />}
                     />
                     <Route path='/game' render={() => user ?

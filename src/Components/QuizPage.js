@@ -12,7 +12,7 @@ const Quiz = props => {
 }
 
 const QuizPage = props => {
-    if(props.quizzes === null || props.quizzes === '') {
+    if(props.quizzes === null || props.categories === null) {
         return (
             <div>loading</div>
         )
@@ -33,6 +33,8 @@ const QuizPage = props => {
                     handleNewQuestion={props.handleNewQuestion}
                     newQuestion={props.newQuestion}
                     newAnswer={props.newAnswer}
+                    categories={props.categories}
+                    handleQuizCategoryIdChange={props.handleQuizCategoryIdChange}
                 />
             </Togglable>
         </div>
