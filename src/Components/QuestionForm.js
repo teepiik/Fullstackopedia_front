@@ -3,11 +3,10 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 
 const QuestionForm = (props) => {
 
-    const categoryRows = () => {
+    const categoryRows = () =>
         props.categories.map(c =>
             <option key={c.id} value={c.id}>{c.categoryName}</option>
         )
-    }
 
     return (
         <div>
