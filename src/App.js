@@ -7,6 +7,7 @@ import Home from './Components/Home'
 import Game from './Components/Game'
 import QuizPage from './Components/QuizPage'
 import Notification from './Components/Notification'
+import Footer from './Components/Footer'
 import {
     BrowserRouter as Router,
     Route, Redirect
@@ -157,6 +158,7 @@ const App = () => {
                     />
                 </div>
             </Router>
+            <Footer />
         </div>
     )
 }
