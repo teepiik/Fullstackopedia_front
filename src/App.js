@@ -5,7 +5,7 @@ import NewUserForm from './Components/NewUserForm'
 import Logout from './Components/Logout'
 import Home from './Components/Home'
 import Game from './Components/Game'
-import QuizPage from './Components/QuizPage'
+import WarmupPage from './Components/WarmupPage'
 import Notification from './Components/Notification'
 import Footer from './Components/Footer'
 import {
@@ -132,8 +132,8 @@ const App = () => {
                             password={password.field}
                         />}
                     />
-                    <Route exact path = '/quiz' render={() =>
-                        <QuizPage
+                    <Route exact path = '/warmup' render={() =>
+                        <WarmupPage
                             categories={categories}
                             quizzes={quizzes}
                             handleNewQuestion={handleNewQuestion}

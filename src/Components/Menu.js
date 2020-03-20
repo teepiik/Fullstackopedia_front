@@ -13,7 +13,7 @@ const Menu = (props) => {
                             <Link className='menulink' to='/'>Home</Link>
                         </Nav.Link>
                         <Nav.Link href='#' as='span'>
-                            <Link className='menulink' to='/quiz'>Quiz</Link>
+                            <Link className='menulink' to='/warmup'>Warm up</Link>
                         </Nav.Link>
                         <Nav.Link href='#' as='span'>
                             <Link className='menulink' to='/game'>Game</Link>
