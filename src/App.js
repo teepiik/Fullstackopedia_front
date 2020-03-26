@@ -96,6 +96,14 @@ const App = () => {
             // TODO SOMETHING ELSE
         }
     }
+    /* HUOMHUOMHUOM
+        CLEAN APP.JS
+        siirrä fieldit formeille ja muuta handlesendit sen mukaan
+    */
+
+    const handleNewGameQuestion = () => {
+        quizService.setToken(user.token) // gameservice
+    }
 
     const handleNewUser = async (event) => {
         event.preventDefault()
