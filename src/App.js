@@ -12,18 +12,12 @@ import {
     Route, Redirect
 } from 'react-router-dom'
 import { useField } from './Hooks/hooks'
-import loginService from './Services/login'
-import userService from './Services/user'
 import categoryService from './Services/categories'
 import quizService from './Services/quiz'
 
 const App = () => {
     const [user, setUser] = useState(null)
     const [message, setMessage] = useState('')
-    const username = useField('text')
-    const password = useField('password')
-    const newUsername = useField('text')
-    const newPassword = useField('password')
     const [categories, setCategories] = useState(null)
     const [quizzes, setQuizzes] = useState(null)
     const newQuestion = useField('text')
@@ -61,21 +55,6 @@ const App = () => {
         setNewQuizCategoryId(event.target.value)
     }
 
-    const handleLogin = async (event) => {
-        event.preventDefault()
-        try {
-            const user = await loginService.login({ username:username.field.value, password:password.field.value })
-            window.localStorage.setItem('loggedUser', JSON.stringify(user))
-            setUser(user)
-            username.setEmpty()
-            password.setEmpty()
-            setUpNotification(`Logged in as ${user.username}`)
-        } catch (error) {
-            setUpNotification('Login failed.')
-            password.setEmpty()
-        }
-    }
-
     const handleNewQuestion = async (event) => {
         event.preventDefault()
         try {
@@ -99,23 +78,10 @@ const App = () => {
     /* HUOMHUOMHUOM
         CLEAN APP.JS
         siirrä fieldit formeille ja muuta handlesendit sen mukaan
+
+        Lisää gameQui service, gameservice etc
+        componentteja, routea
     */
-
-    const handleNewGameQuestion = () => {
-        quizService.setToken(user.token) // gameservice
-    }
-
-    const handleNewUser = async (event) => {
-        event.preventDefault()
-        try {
-            const newUser = await userService.newUser({ username:newUsername.field.value, password:newPassword.field.value })
-            setUpNotification(`${newUser.username} created!`)
-            newUsername.setEmpty()
-            newPassword.setEmpty()
-        } catch(error) {
-            setUpNotification('New user registration failed.')
-        }
-    }
 
     const handleLogout = () => {
         window.localStorage.clear()
@@ -134,9 +100,8 @@ const App = () => {
                     <Route exact path = '/' render={() => <Home />} />
                     <Route path = '/login' render={() =>
                         <Login
-                            handleLogin={handleLogin}
-                            username={username.field}
-                            password={password.field}
+                            setUser={setUser}
+                            setUpNotification={setUpNotification}
                         />}
                     />
                     <Route exact path = '/warmup' render={() =>
@@ -155,9 +120,7 @@ const App = () => {
                         <Redirect to='/login' />} />
                     <Route path = '/register' render={() =>
                         <NewUserForm
-                            handleNewUser={handleNewUser}
-                            newUsername={newUsername.field}
-                            newPassword={newPassword.field}
+                            setUpNotification={setUpNotification}
                         />}
                     />
                     <Route path = '/logout' render={() =>

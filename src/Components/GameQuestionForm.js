@@ -10,12 +10,16 @@ const GameQuestionForm = () => {
     const optionD = useField('text')
     const correctAnswer = useSelectField(['A', 'B', 'C', 'D'])
 
+    const handleNewGameQuestion = () => {
+        //gameService.setToken(user.token) // gameservice
+    }
+
     return (
         <div>
             <h4>Add new Question</h4>
             <Row>
                 <Col>
-                    <Form onSubmit={props.handleNewGameQuestion}>
+                    <Form onSubmit={() => handleNewGameQuestion()}>
                         <Form.Group>
                             <Form.Label>Question: </Form.Label>
                             <Form.Control
