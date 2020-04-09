@@ -11,7 +11,7 @@ import {
     BrowserRouter as Router,
     Route, Redirect
 } from 'react-router-dom'
-import { useField } from './Hooks/hooks'
+
 import loginService from './Services/login'
 import userService from './Services/user'
 import categoryService from './Services/categories'
@@ -22,9 +22,6 @@ const App = () => {
     const [message, setMessage] = useState('')
     const [categories, setCategories] = useState(null)
     const [quizzes, setQuizzes] = useState(null)
-    const newQuestion = useField('text')
-    const newAnswer = useField('text')
-    const [newQuizCategoryId, setNewQuizCategoryId] = useState('')
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -53,10 +50,6 @@ const App = () => {
 
     const QuestionFormRef = React.createRef()
 
-    const handleQuizCategoryIdChange = (event) => {
-        setNewQuizCategoryId(event.target.value)
-    }
-
     const handleLogin = async (userObject) => {
         try {
             const user = await loginService.login(userObject)
@@ -77,24 +70,16 @@ const App = () => {
         }
     }
 
-    const handleNewQuestion = async (event) => {
-        event.preventDefault()
+    const handleNewQuestion = async (quizObject) => {
         try {
             QuestionFormRef.current.toggleVisibility()
-            const quizObject = {
-                question: newQuestion.field.value,
-                answer: newAnswer.field.value,
-                category_id: newQuizCategoryId
-            }
             quizService.setToken(user.token)
             const newQuiz = await quizService.create(quizObject)
             setQuizzes(quizzes.concat(newQuiz))
-            newQuestion.setEmpty()
-            newAnswer.setEmpty()
             setUpNotification('New question added!')
         } catch (error) {
-            console.log(error)
-            // TODO SOMETHING ELSE
+            // Add better message from logs
+            setUpNotification('Creation failed')
         }
     }
     /* HUOMHUOMHUOM
@@ -123,7 +108,6 @@ const App = () => {
                     <Route path = '/login' render={() =>
                         <Login
                             handleLogin={handleLogin}
-                            setUpNotification={setUpNotification}
                         />}
                     />
                     <Route exact path = '/warmup' render={() =>
@@ -131,10 +115,7 @@ const App = () => {
                             categories={categories}
                             quizzes={quizzes}
                             handleNewQuestion={handleNewQuestion}
-                            newQuestion={newQuestion.field}
-                            newAnswer={newAnswer.field}
                             QuestionFormRef={QuestionFormRef}
-                            handleQuizCategoryIdChange={handleQuizCategoryIdChange}
                         />}
                     />
                     <Route path='/game' render={() => user ?
