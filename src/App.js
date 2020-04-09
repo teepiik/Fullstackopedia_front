@@ -12,6 +12,8 @@ import {
     Route, Redirect
 } from 'react-router-dom'
 import { useField } from './Hooks/hooks'
+import loginService from './Services/login'
+import userService from './Services/user'
 import categoryService from './Services/categories'
 import quizService from './Services/quiz'
 
@@ -53,6 +55,26 @@ const App = () => {
 
     const handleQuizCategoryIdChange = (event) => {
         setNewQuizCategoryId(event.target.value)
+    }
+
+    const handleLogin = async (userObject) => {
+        try {
+            const user = await loginService.login(userObject)
+            window.localStorage.setItem('loggedUser', JSON.stringify(user))
+            setUser(user)
+            setUpNotification(`Logged in as ${user.username}`)
+        } catch (error) {
+            setUpNotification('Login failed.')
+        }
+    }
+
+    const handleNewUser = async (newUserObject) => {
+        try {
+            const newUser = await userService.newUser(newUserObject)
+            setUpNotification(`${newUser.username} created!`)
+        } catch(error) {
+            setUpNotification('New user registration failed.')
+        }
     }
 
     const handleNewQuestion = async (event) => {
@@ -100,7 +122,7 @@ const App = () => {
                     <Route exact path = '/' render={() => <Home />} />
                     <Route path = '/login' render={() =>
                         <Login
-                            setUser={setUser}
+                            handleLogin={handleLogin}
                             setUpNotification={setUpNotification}
                         />}
                     />
@@ -120,7 +142,7 @@ const App = () => {
                         <Redirect to='/login' />} />
                     <Route path = '/register' render={() =>
                         <NewUserForm
-                            setUpNotification={setUpNotification}
+                            handleNewUser={handleNewUser}
                         />}
                     />
                     <Route path = '/logout' render={() =>
