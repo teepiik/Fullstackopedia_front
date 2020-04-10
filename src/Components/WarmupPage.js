@@ -19,11 +19,6 @@ const Quiz = props => {
         setShowAns(!showAns)
     }
 
-    /* 
-    render={() => user ?
-                        <Game /> :
-                        <Redirect to='/login' />} /> */
-
     return (
         <div>
             <Card>
@@ -68,7 +63,7 @@ const WarmupPage = props => {
                     <Button variant='dark' onClick={() => handleNextQuestion()}>Next question</Button>
                 </Col>
                 <Col>
-                    <Togglable buttonLabel='Create Question' ref={props.QuestionFormRef}>
+                    <Togglable buttonLabel='Create Warm-up question' ref={props.QuestionFormRef}>
                         <QuestionForm
                             handleNewQuestion={props.handleNewQuestion}
                             newQuestion={props.newQuestion}

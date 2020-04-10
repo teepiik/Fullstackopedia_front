@@ -6,6 +6,7 @@ const QuestionForm = (props) => {
     const newQuestion = useField('text')
     const newAnswer = useField('text')
     const [newQuizCategoryId, setNewQuizCategoryId] = useState(props.categories[0].id)
+    const categories = props.categories.sort((a,b) => a.categoryName.localeCompare(b.categoryName))
 
     const handleQuizCategoryIdChange = (event) => {
         setNewQuizCategoryId(event.target.value)
@@ -24,7 +25,7 @@ const QuestionForm = (props) => {
     }
 
     const categoryRows = () =>
-        props.categories.map(c =>
+        categories.map(c =>
             <option key={c.id} value={c.id}>{c.categoryName}</option>
         )
 
@@ -37,10 +38,12 @@ const QuestionForm = (props) => {
                         <Form.Group>
                             <Form.Label>Question: </Form.Label>
                             <Form.Control
+                                as="textarea" rows="2"
                                 {...newQuestion.field}
                             />
                             <Form.Label>Answer: </Form.Label>
                             <Form.Control
+                                as="textarea" rows="3"
                                 {...newAnswer.field}
                             />
                             <Form.Label>Category: </Form.Label>
