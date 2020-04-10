@@ -6,6 +6,7 @@ import Logout from './Components/Logout'
 import Home from './Components/Home'
 import Game from './Components/Game'
 import WarmupPage from './Components/WarmupPage'
+import GameQuizForm from './Components/GameQuizForm'
 import Notification from './Components/Notification'
 import {
     BrowserRouter as Router,
@@ -82,13 +83,17 @@ const App = () => {
             setUpNotification('Creation failed')
         }
     }
-    /* HUOMHUOMHUOM
-        CLEAN APP.JS
-        siirrä fieldit formeille ja muuta handlesendit sen mukaan
 
-        Lisää gameQui service, gameservice etc
-        componentteja, routea
-    */
+    const handleNewGameQuestion = async (quizObject) => {
+        try {
+            //quizService.setToken(user.token)
+            //const newQuiz = await quizService.create(quizObject)
+            setUpNotification('New question added!')
+        } catch (error) {
+            // Add better message from logs
+            setUpNotification('Creation failed')
+        }
+    }
 
     const handleLogout = () => {
         window.localStorage.clear()
@@ -116,6 +121,11 @@ const App = () => {
                             quizzes={quizzes}
                             handleNewQuestion={handleNewQuestion}
                             QuestionFormRef={QuestionFormRef}
+                        />}
+                    />
+                    <Route exact path = '/addgamequestion' render={() =>
+                        <GameQuizForm
+                            handleNewGameQuestion={handleNewGameQuestion}
                         />}
                     />
                     <Route path='/game' render={() => user ?
