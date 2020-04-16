@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+// Components
 import Login from './Components/Login'
 import Menu from './Components/Menu'
 import NewUserForm from './Components/NewUserForm'
@@ -8,15 +10,12 @@ import Game from './Components/Game'
 import WarmupPage from './Components/WarmupPage'
 import GameQuizForm from './Components/GameQuizForm'
 import Notification from './Components/Notification'
-import {
-    BrowserRouter as Router,
-    Route, Redirect
-} from 'react-router-dom'
-
+// Services
 import loginService from './Services/login'
 import userService from './Services/user'
 import categoryService from './Services/categories'
 import quizService from './Services/quiz'
+import gameService from './Services/game'
 
 const App = () => {
     const [user, setUser] = useState(null)
@@ -49,6 +48,7 @@ const App = () => {
         }, 5000)
     }
 
+    // For warm-up page
     const QuestionFormRef = React.createRef()
 
     const handleLogin = async (userObject) => {
@@ -62,6 +62,7 @@ const App = () => {
         }
     }
 
+    // User registeration
     const handleNewUser = async (newUserObject) => {
         try {
             const newUser = await userService.newUser(newUserObject)
@@ -70,7 +71,7 @@ const App = () => {
             setUpNotification('New user registration failed.')
         }
     }
-
+    // Warm-up question
     const handleNewQuestion = async (quizObject) => {
         try {
             QuestionFormRef.current.toggleVisibility()
@@ -84,10 +85,12 @@ const App = () => {
         }
     }
 
+    // Game question
     const handleNewGameQuestion = async (quizObject) => {
         try {
-            //quizService.setToken(user.token)
-            //const newQuiz = await quizService.create(quizObject)
+            gameService.setToken(user.token)
+            const newQuiz = await gameService.create(quizObject)
+            console.log(newQuiz)
             setUpNotification('New question added!')
         } catch (error) {
             // Add better message from logs
