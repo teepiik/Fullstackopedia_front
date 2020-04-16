@@ -15,7 +15,7 @@ import loginService from './Services/login'
 import userService from './Services/user'
 import categoryService from './Services/categories'
 import quizService from './Services/quiz'
-import gameService from './Services/game'
+import gamequestionsService from './Services/gamequestions'
 
 const App = () => {
     const [user, setUser] = useState(null)
@@ -88,8 +88,9 @@ const App = () => {
     // Game question
     const handleNewGameQuestion = async (quizObject) => {
         try {
-            gameService.setToken(user.token)
-            const newQuiz = await gameService.create(quizObject)
+            console.log('tuli serviceen')
+            gamequestionsService.setToken(user.token)
+            const newQuiz = await gamequestionsService.create(quizObject)
             console.log(newQuiz)
             setUpNotification('New question added!')
         } catch (error) {

@@ -8,17 +8,21 @@ const GameQuizForm = (props) => {
     const choiceB = useField('text')
     const choiceC = useField('text')
     const choiceD = useField('text')
-    const [rightAnswer, setRightAnswer] = useState('A')
+    const [correctAnswer, setCorrectAnswer] = useState('A')
     const [level, setLevel] = useState(1)
     const labels = ['A', 'B', 'C', 'D']
     const levels = [1, 2, 3, 4, 5, 6, 7, 8]
 
     const createNewQuestion = (event) => {
         event.preventDefault()
+        console.log('click')
         const quizObject = {
             question: question.field.value,
             choiceA: choiceA.field.value,
-            rightAnswer,
+            choiceB: choiceB.field.value,
+            choiceC: choiceC.field.value,
+            choiceD: choiceD.field.value,
+            correctAnswer,
             level
         }
         props.handleNewGameQuestion(quizObject)
@@ -29,8 +33,8 @@ const GameQuizForm = (props) => {
         choiceD.setEmpty()
     }
 
-    const handleRightAnswerChange = (event) => {
-        setRightAnswer(event.target.value)
+    const handleCorrectAnswerChange = (event) => {
+        setCorrectAnswer(event.target.value)
     }
 
     const handleLevelChange = (event) => {
@@ -74,8 +78,8 @@ const GameQuizForm = (props) => {
                                 as="textarea" rows="2"
                                 {...choiceD.field}
                             />
-                            <Form.Label>Right Answer</Form.Label>
-                            <Form.Control as='select' onChange={handleRightAnswerChange}>
+                            <Form.Label>Correct Answer</Form.Label>
+                            <Form.Control as='select' onChange={handleCorrectAnswerChange}>
                                 {makeRows(labels)}
                             </Form.Control>
                             <Form.Label>Question Level</Form.Label>
