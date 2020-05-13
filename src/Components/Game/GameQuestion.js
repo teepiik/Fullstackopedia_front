@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const GameQuestion = ({ question }) => {
+// Constains question, answer options, answer buttons
+
+const GameQuestion = ({ question, handleAnswer }) => {
+    const [answer, setAnswer] = useState('')
+
+    if(question === '') return null
+
     return (
         <div>
             {question.question}

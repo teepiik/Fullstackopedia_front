@@ -17,19 +17,19 @@ const getOne = async id => {
     return res.data
 }
 
-const create = newObject => {
-    const request = axios.post(baseUrl, newObject, config)
-    return request.then(response => response.data)
+const create = async newObject => {
+    const res = axios.post(baseUrl, newObject, config)
+    return res.data
 }
 
-const update = (id, newObject) => {
-    const request = axios.put(`${baseUrl}/${id}`, newObject, config)
-    return request.then(response => response.data)
+const update = async (id, newObject) => {
+    const res = axios.put(`${baseUrl}/${id}`, newObject, config)
+    return res.data
 }
 
 const destroy = id => {
-    const request = axios.delete(`${baseUrl}/${id}`, config)
-    return request.then(response => response.data)
+    const res = axios.delete(`${baseUrl}/${id}`, config)
+    return res.data
 }
 
 export default { getAll, getOne, create, update, destroy, setToken }
