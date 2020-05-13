@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Game = () => {
+const GamePage = () => {
     return (
         <div>
             <h1>Who wants to be a Full Stack Developer?</h1>
@@ -10,4 +10,4 @@ const Game = () => {
     )
 }
 
-export default Game
+export default GamePage

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { useField } from '../Hooks/hooks'
+import { useField } from '../../Hooks/hooks'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 
-const QuestionForm = (props) => {
+const QuizForm = (props) => {
     const newQuestion = useField('text')
     const newAnswer = useField('text')
     const [newQuizCategoryId, setNewQuizCategoryId] = useState(props.categories[0].id)
@@ -62,4 +62,4 @@ const QuestionForm = (props) => {
     )
 }
 
-export default QuestionForm
+export default QuizForm

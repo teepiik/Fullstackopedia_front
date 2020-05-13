@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import QuestionForm from './QuestionForm'
-import Togglable from './Togglable'
+import QuizForm from './QuizForm'
+import Togglable from '../Togglable'
 import { Button, Card, Row, Col } from 'react-bootstrap'
 
 const Quiz = props => {
@@ -64,7 +64,7 @@ const WarmupPage = props => {
                 </Col>
                 <Col>
                     <Togglable buttonLabel='Create Warm-up question' ref={props.QuestionFormRef}>
-                        <QuestionForm
+                        <QuizForm
                             handleNewQuestion={props.handleNewQuestion}
                             newQuestion={props.newQuestion}
                             newAnswer={props.newAnswer}

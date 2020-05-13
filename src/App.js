@@ -6,9 +6,9 @@ import Menu from './Components/Menu'
 import NewUserForm from './Components/NewUserForm'
 import Logout from './Components/Logout'
 import Home from './Components/Home'
-import Game from './Components/Game'
-import WarmupPage from './Components/WarmupPage'
-import GameQuizForm from './Components/GameQuizForm'
+import GamePage from './Components/Game/GamePage'
+import WarmupPage from './Components/Warmup/WarmupPage'
+import GameQuizForm from './Components/Game/GameQuizForm'
 import Notification from './Components/Notification'
 // Services
 import loginService from './Services/login'
@@ -133,7 +133,7 @@ const App = () => {
                         />}
                     />
                     <Route path='/game' render={() => user ?
-                        <Game /> :
+                        <GamePage /> :
                         <Redirect to='/login' />} />
                     <Route path = '/register' render={() =>
                         <NewUserForm
