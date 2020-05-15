@@ -132,9 +132,9 @@ const App = () => {
                             handleNewGameQuestion={handleNewGameQuestion}
                         />}
                     />
-                    <Route path='/game' render={() => user ?
-                        <GamePage user={user} setUser={setUser} /> :
-                        <Redirect to='/login' />} />
+                    <Route path ='/game' render={() =>
+                        <GamePage user={user} setUser={setUser} />}
+                    />
                     <Route path = '/register' render={() =>
                         <NewUserForm
                             handleNewUser={handleNewUser}

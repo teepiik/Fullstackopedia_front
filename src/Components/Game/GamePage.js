@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Gameservice from '../../Services/game'
+import GameQuestion from '../Game/GameQuestion'
 
 // Start game
 // Get question
@@ -15,8 +16,11 @@ const GamePage = (props) => {
 
     // TODO check this with logout, possible bugs
     // TODO token updating?
+    // TODO RELOAD BUG, not updating as should
     useEffect(() => {
-        Gameservice.setToken(user.token)
+        if(user !== null) {
+            Gameservice.setToken(user.token)
+        }
     }, [])
 
     // Starts a new game
@@ -30,6 +34,7 @@ const GamePage = (props) => {
     // Gets next question
     const getNextQuestion = async () => {
         const res = await Gameservice.getQuestion(user.id)
+        setQuestion(res)
         console.log(res)
     }
 
@@ -43,6 +48,7 @@ const GamePage = (props) => {
             <Button onClick={() => handleNewGame()}>Start new game</Button>
             <Button onClick={() => getNextQuestion()}>question</Button>
             <Link to='/addgamequestion'>Create gamequestion</Link>
+            <GameQuestion question={question} />
         </div>
     )
 }
