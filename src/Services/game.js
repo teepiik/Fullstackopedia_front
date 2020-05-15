@@ -7,16 +7,20 @@ const setToken = newToken => {
     config = { headers: { Authorization: `bearer ${newToken}` } }
 }
 
-const startNewGame = id => {
+const startNewGame = async id => {
+    const body = {}
+    const res = await axios.post(`${baseUrl}/newgame/${id}`, body, config)
+    return res.data
+}
+
+const getQuestion = async id => {
 
 }
 
-const getQuestion = id => {
-
-}
-
-const answerQuestion = (id, answer) => {
-
+const answerQuestion = async (id, answer) => {
+    const body = { answer: answer }
+    const res = await axios.post(`${baseUrl}/answer/${id}`, body, config)
+    return res.data
 }
 
 export default { startNewGame, getQuestion, answerQuestion, setToken }

@@ -63,7 +63,7 @@ const WarmupPage = props => {
                     <Button variant='dark' onClick={() => handleNextQuestion()}>Next question</Button>
                 </Col>
                 <Col>
-                    <Togglable buttonLabel='Create Warm-up question' ref={props.QuestionFormRef}>
+                    <Togglable buttonLabel='Create Warm-up question' ref={props.QuizFormRef}>
                         <QuizForm
                             handleNewQuestion={props.handleNewQuestion}
                             newQuestion={props.newQuestion}

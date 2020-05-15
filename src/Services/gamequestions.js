@@ -14,17 +14,17 @@ const getAll = async () => {
 }
 
 const create = async newObject => {
-    const res = axios.post(baseUrl, newObject, config)
+    const res = await axios.post(baseUrl, newObject, config)
     return res.data
 }
 
 const update = async (id, newObject) => {
-    const res = axios.put(`${baseUrl}/${id}`, newObject, config)
+    const res = await axios.put(`${baseUrl}/${id}`, newObject, config)
     return res.data
 }
 
-const destroy = id => {
-    const res = axios.delete(`${baseUrl}/${id}`, config)
+const destroy = async id => {
+    const res = await axios.delete(`${baseUrl}/${id}`, config)
     return res.data
 }
 

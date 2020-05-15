@@ -49,7 +49,7 @@ const App = () => {
     }
 
     // For warm-up page
-    const QuestionFormRef = React.createRef()
+    const QuizFormRef = React.createRef()
 
     const handleLogin = async (userObject) => {
         try {
@@ -74,7 +74,7 @@ const App = () => {
     // Warm-up question
     const handleNewQuestion = async (quizObject) => {
         try {
-            QuestionFormRef.current.toggleVisibility()
+            QuizFormRef.current.toggleVisibility()
             quizService.setToken(user.token)
             const newQuiz = await quizService.create(quizObject)
             setQuizzes(quizzes.concat(newQuiz))
@@ -124,7 +124,7 @@ const App = () => {
                             categories={categories}
                             quizzes={quizzes}
                             handleNewQuestion={handleNewQuestion}
-                            QuestionFormRef={QuestionFormRef}
+                            QuizFormRef={QuizFormRef}
                         />}
                     />
                     <Route exact path = '/addgamequestion' render={() =>
@@ -133,7 +133,7 @@ const App = () => {
                         />}
                     />
                     <Route path='/game' render={() => user ?
-                        <GamePage /> :
+                        <GamePage user={user} setUser={setUser} /> :
                         <Redirect to='/login' />} />
                     <Route path = '/register' render={() =>
                         <NewUserForm
