@@ -14,7 +14,8 @@ const startNewGame = async id => {
 }
 
 const getQuestion = async id => {
-
+    const res = await axios.get(`${baseUrl}/getQuestion/${id}`, config)
+    return res.data
 }
 
 const answerQuestion = async (id, answer) => {

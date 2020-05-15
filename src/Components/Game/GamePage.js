@@ -14,21 +14,23 @@ const GamePage = (props) => {
     const user = props.user // Tarviiko päivittää?? todnäk
 
     // TODO check this with logout, possible bugs
-    // TODO, vedä player tila suoraan user tilaks ja pyöritä sitä app js
+    // TODO token updating?
     useEffect(() => {
         Gameservice.setToken(user.token)
     }, [])
 
+    // Starts a new game
     const handleNewGame = async () => {
         const res = await Gameservice.startNewGame(user.id)
-        const updatedUser = { ...user }
+        const updatedUser = { ...user } // stupid des?
         updatedUser.gameLevel = res.gameLevel
         props.setUser(updatedUser)
-        console.log(updatedUser)
     }
 
-    const handleNewQuestion = () => {
-
+    // Gets next question
+    const getNextQuestion = async () => {
+        const res = await Gameservice.getQuestion(user.id)
+        console.log(res)
     }
 
     const handleAnswer = () => {
@@ -39,6 +41,7 @@ const GamePage = (props) => {
         <div>
             <h1>Who wants to be a Full Stack Developer?</h1>
             <Button onClick={() => handleNewGame()}>Start new game</Button>
+            <Button onClick={() => getNextQuestion()}>question</Button>
             <Link to='/addgamequestion'>Create gamequestion</Link>
         </div>
     )
