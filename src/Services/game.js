@@ -18,9 +18,14 @@ const getQuestion = async id => {
     return res.data
 }
 
-const answerQuestion = async (id, answer) => {
-    const body = { answer: answer }
-    const res = await axios.post(`${baseUrl}/answer/${id}`, body, config)
+// ody.userId, body.questionId, body.answer
+const answerQuestion = async (userId ,questionId, answer) => {
+    const body = {
+        answer: answer,
+        userId: userId,
+        questionId: questionId
+    }
+    const res = await axios.post(`${baseUrl}/answer`, body, config)
     return res.data
 }
 

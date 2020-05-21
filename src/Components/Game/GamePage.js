@@ -12,6 +12,7 @@ import GameQuestion from '../Game/GameQuestion'
 
 const GamePage = (props) => {
     const [question, setQuestion] = useState('')
+    const [answer, setAnswer] = useState('A')
     const user = props.user // Tarviiko päivittää?? todnäk
 
     // TODO check this with logout, possible bugs
@@ -38,8 +39,15 @@ const GamePage = (props) => {
         console.log(res)
     }
 
-    const handleAnswer = () => {
-
+    const handleAnswer = async () => {
+        try {
+            console.log(question)
+            console.log('Vastaus: ', answer)
+            const res = await Gameservice.answerQuestion(user.id, question.id, answer)
+            console.log(res)
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -48,7 +56,8 @@ const GamePage = (props) => {
             <Button onClick={() => handleNewGame()}>Start new game</Button>
             <Button onClick={() => getNextQuestion()}>question</Button>
             <Link to='/addgamequestion'>Create gamequestion</Link>
-            <GameQuestion question={question} />
+            <GameQuestion question={question} setAnswer={setAnswer} />
+            <Button onClick={() => handleAnswer()}>Answer</Button>
         </div>
     )
 }
